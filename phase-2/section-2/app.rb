@@ -16,8 +16,11 @@ DatabaseConnection.connect('music_library')
 
 album_repository = AlbumRepository.new
 
-albums = album_repository.all
+# albums = album_repository.all
 
-albums.each do |album|
-  p album.title
-end
+# albums.each do |album|
+#   p album.title
+# end
+
+album = album_repository.find(3)
+p album

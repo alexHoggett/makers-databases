@@ -25,8 +25,9 @@ class AlbumRepository
   # Gets a single record by its ID
   # One arg: id (number)
   def find(id)
-    sql = "SELECT * FROM albums WHERE id = #{id};"
-    result_set = DatabaseConnection.exec_params(sql, [])
+    sql = "SELECT * FROM albums WHERE id = $1;"
+    params = [id]
+    result_set = DatabaseConnection.exec_params(sql, params)
 
     album = Album.new
     album.id = result_set[0]['id'].to_i
