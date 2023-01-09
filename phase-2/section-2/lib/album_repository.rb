@@ -40,17 +40,17 @@ class AlbumRepository
 
   # adds an album
   # 3 args: title (string) release_year (number) artist_id (number)
-  def create(title, release_year, artist_id)
+  def create(album)
     sql = "INSERT INTO albums (title, release_year, artist_id)
-          VALUES ('#{title}', #{release_year}, #{artist_id});"
-    DatabaseConnection.exec_params(sql, [])
+          VALUES ($1, $2, $3);"
+    DatabaseConnection.exec_params(sql, [album.title, album.release_year, album.artist_id])
   end
 
   # deletes an album
   # 1 arg: id (number)
   def delete(id)
-    sql = "DELETE FROM albums WHERE id = #{id};"
-    DatabaseConnection.exec_params(sql, [])
+    sql = "DELETE FROM albums WHERE id = $1;"
+    DatabaseConnection.exec_params(sql, [id])
   end
 
   # updates an album

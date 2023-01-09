@@ -38,14 +38,23 @@ describe AlbumRepository do
     expect(album.artist_id).to eq 1
   end
 
-  it "Adds an album to the abums table" do
+  it "Adds an album to the albums table" do
     repo = AlbumRepository.new
-    repo.create('Hot Pink', 2019, 3)
+
+    album = Album.new
+    album.title = 'Hot Pink'
+    album.release_year = 2019
+    album.artist_id = 3
+    repo.create(album)
+
     albums = repo.all
     expect(albums.length).to eq 3
     expect(albums[-1].title).to eq 'Hot Pink'
     expect(albums[-1].release_year).to eq 2019
     expect(albums[-1].artist_id).to eq 3
+    expect(
+      albums.any? { |a| a.title == album.title }
+    ).to eq true
   end
 
   it "Deletes an album from the albums table" do
